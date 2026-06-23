@@ -32,6 +32,16 @@ export default function Contact() {
     const errs = validate();
     if (Object.keys(errs).length > 0) { setErrors(errs); return; }
     setErrors({});
+
+    const text =
+      `🍽️ *New Message — Golden Fork Steakhouse*\n\n` +
+      `👤 *Name:* ${form.name}\n` +
+      `📧 *Email:* ${form.email}\n\n` +
+      `💬 *Message:*\n${form.message}`;
+
+    const waUrl = `https://wa.me/923103109222?text=${encodeURIComponent(text)}`;
+    window.open(waUrl, '_blank', 'noopener,noreferrer');
+
     setSubmitted(true);
   };
 
