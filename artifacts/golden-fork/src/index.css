@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-card-border: hsl(var(--card-border));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-popover-border: hsl(var(--popover-border));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-primary-border: var(--primary-border);
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-secondary-border: var(--secondary-border);
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-muted-border: var(--muted-border);
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-accent-border: var(--accent-border);
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-destructive-border: var(--destructive-border);
+
+  --font-sans: var(--app-font-sans);
+  --font-serif: var(--app-font-serif);
+}
+
+:root, .dark {
+  --background: 20 10% 7%;
+  --foreground: 40 20% 93%;
+  --card: 20 10% 10%;
+  --card-foreground: 40 20% 93%;
+  --popover: 20 10% 10%;
+  --popover-foreground: 40 20% 93%;
+  --primary: 43 80% 52%;
+  --primary-foreground: 20 10% 7%;
+  --secondary: 30 15% 16%;
+  --secondary-foreground: 40 20% 93%;
+  --muted: 20 10% 13%;
+  --muted-foreground: 40 10% 58%;
+  --accent: 43 80% 52%;
+  --accent-foreground: 40 20% 93%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 40 20% 93%;
+  --border: 30 15% 16%;
+  --input: 30 15% 16%;
+  --ring: 43 80% 52%;
+
+  --radius: 0.5rem;
+
+  --app-font-sans: 'Inter', sans-serif;
+  --app-font-serif: 'Playfair Display', serif;
+
+  --gold: #c9993a;
+  --gold-light: #e8c060;
+  --gold-dark: #9a7228;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+
+  /* Luxury gold text selection */
+  ::selection {
+    background: hsl(43 80% 52% / 0.35);
+    color: hsl(40 20% 97%);
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(20 10% 7%);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(43 80% 52% / 0.4);
+    border-radius: 0;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(43 80% 52% / 0.7);
+  }
+}
+
+/* ── Grain texture overlay ─────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.032;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+}
+
+/* ── Animated gold shimmer gradient text ──────────────── */
+.gold-gradient-text {
+  background: linear-gradient(
+    90deg,
+    hsl(40 20% 93%) 0%,
+    hsl(43 80% 70%) 30%,
+    hsl(43 80% 52%) 50%,
+    hsl(43 80% 70%) 70%,
+    hsl(40 20% 93%) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gold-shimmer 5s linear infinite;
+}
+
+@keyframes gold-shimmer {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ── Section ornament divider ─────────────────────────── */
+.ornament-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 0 auto;
+}
+
+.ornament-divider::before,
+.ornament-divider::after {
+  content: '';
+  flex: 1;
+  max-width: 48px;
+  height: 1px;
+  background: hsl(43 80% 52% / 0.6);
+}
+
+.ornament-divider span {
+  width: 6px;
+  height: 6px;
+  border: 1px solid hsl(43 80% 52%);
+  transform: rotate(45deg);
+  display: block;
+  flex-shrink: 0;
+}
+
+/* ── Gold glow card hover ─────────────────────────────── */
+.gold-glow-hover {
+  transition: box-shadow 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
+}
+.gold-glow-hover:hover {
+  box-shadow: 0 8px 40px hsl(43 80% 52% / 0.12), 0 2px 12px hsl(43 80% 52% / 0.08);
+  border-color: hsl(43 80% 52% / 0.5);
+  transform: translateY(-3px);
+}
+
+/* ── Shimmer loading bar ──────────────────────────────── */
+@keyframes shimmer-sweep {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+.shimmer-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    hsl(43 80% 52% / 0.08) 50%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.shimmer-card:hover::after {
+  opacity: 1;
+  animation: shimmer-sweep 0.75s ease forwards;
+}
+
+/* ── Scrollbar hide utility ───────────────────────────── */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Smooth image reveal ──────────────────────────────── */
+img {
+  will-change: transform;
+}
+
+/* ── Luxury border accent ─────────────────────────────── */
+.luxury-border {
+  position: relative;
+}
+.luxury-border::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(43 80% 52% / 0.5), transparent);
+}
